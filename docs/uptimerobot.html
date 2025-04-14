@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
 <head>
   <title>Estado de UptimeRobot</title>
@@ -35,7 +36,7 @@
       simpleSheet: true,
       callback: function(data) {
         const tbody = document.querySelector("#estado tbody");
-        tbody.innerHTML = ""; // limpia por si acaso
+        tbody.innerHTML = "";
         data.forEach(row => {
           const estado = row['Estado'] && row['Estado'].includes('UP') ? 'up' : 'down';
           tbody.innerHTML += `
@@ -53,3 +54,4 @@
 
 </body>
 </html>
+
