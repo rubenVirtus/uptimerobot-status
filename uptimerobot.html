@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Estado de UptimeRobot</title>
+  <title>Panel de Estado - UptimeRobot (DEMO)</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/tabletop.js/1.5.1/tabletop.min.js"></script>
   <style>
-    body { font-family: Arial, sans-serif; padding: 10px; background: #fafafa; }
+    body { font-family: Arial, sans-serif; padding: 20px; background: #f5f5f5; }
+    h2 { margin-bottom: 20px; }
     table { width: 100%; border-collapse: collapse; background: white; }
-    th, td { padding: 10px; border: 1px solid #ccc; text-align: left; }
-    th { background-color: #f2f2f2; }
+    th, td { padding: 12px; border: 1px solid #ddd; text-align: left; }
+    th { background-color: #f0f0f0; }
     .up { color: green; font-weight: bold; }
     .down { color: red; font-weight: bold; }
     a { color: #0077cc; text-decoration: none; }
@@ -16,14 +17,14 @@
 </head>
 <body>
 
-<h2>🖥️ Estado de Servicios (UptimeRobot)</h2>
+<h2>🟢 Estado de Servicios - DEMO UptimeRobot</h2>
+
 <table id="estado">
   <thead>
     <tr>
       <th>Nombre</th>
       <th>URL</th>
       <th>Estado</th>
-      <th>Respuesta (ms)</th>
     </tr>
   </thead>
   <tbody></tbody>
@@ -36,16 +37,17 @@
       simpleSheet: true,
       callback: function(data) {
         const tbody = document.querySelector("#estado tbody");
-        tbody.innerHTML = ""; // limpia por si acaso
+        tbody.innerHTML = "";
         data.forEach(row => {
-          const estado = row['Estado'] && row['Estado'].includes('UP') ? 'up' : 'down';
-          tbody.innerHTML += `
-            <tr>
-              <td>${row['Nombre']}</td>
-              <td><a href="${row['URL']}" target="_blank">${row['URL']}</a></td>
-              <td class="${estado}">${row['Estado']}</td>
-              <td>${row['Tiempo de Respuesta']}</td>
-            </tr>`;
+          if (row['Nombre'] && row['URL'] && row['Estado']) {
+            const estado = row['Estado'].toUpperCase().includes('UP') ? 'up' : 'down';
+            tbody.innerHTML += `
+              <tr>
+                <td>${row['Nombre']}</td>
+                <td><a href="${row['URL']}" target="_blank">${row['URL']}</a></td>
+                <td class="${estado}">${row['Estado']}</td>
+              </tr>`;
+          }
         });
       }
     });
