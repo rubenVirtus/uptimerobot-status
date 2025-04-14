@@ -1,0 +1,55 @@
+<html>
+<head>
+  <title>Estado de UptimeRobot</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/tabletop.js/1.5.1/tabletop.min.js"></script>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 10px; background: #fafafa; }
+    table { width: 100%; border-collapse: collapse; background: white; }
+    th, td { padding: 10px; border: 1px solid #ccc; text-align: left; }
+    th { background-color: #f2f2f2; }
+    .up { color: green; font-weight: bold; }
+    .down { color: red; font-weight: bold; }
+    a { color: #0077cc; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+
+<h2>🖥️ Estado de Servicios (UptimeRobot)</h2>
+<table id="estado">
+  <thead>
+    <tr>
+      <th>Nombre</th>
+      <th>URL</th>
+      <th>Estado</th>
+      <th>Respuesta (ms)</th>
+    </tr>
+  </thead>
+  <tbody></tbody>
+</table>
+
+<script>
+  window.onload = function() {
+    Tabletop.init({
+      key: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTls9FLgu_KM2M0V7Cthgxu8s0mTo-x-PJz5UBypuulPMOQp0huGDESimlvhXZvCp8Vjx410E1xnO5f/pubhtml',
+      simpleSheet: true,
+      callback: function(data) {
+        const tbody = document.querySelector("#estado tbody");
+        tbody.innerHTML = ""; // limpia por si acaso
+        data.forEach(row => {
+          const estado = row['Estado'] && row['Estado'].includes('UP') ? 'up' : 'down';
+          tbody.innerHTML += `
+            <tr>
+              <td>${row['Nombre']}</td>
+              <td><a href="${row['URL']}" target="_blank">${row['URL']}</a></td>
+              <td class="${estado}">${row['Estado']}</td>
+              <td>${row['Tiempo de Respuesta']}</td>
+            </tr>`;
+        });
+      }
+    });
+  };
+</script>
+
+</body>
+</html>
